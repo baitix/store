@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.png" type="image/png">
+    <title>Regulamin - Sklep Internetowy</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="index.html">
+                <img src="logo.png" alt="Logo Sklepu"></a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Strona Główna</a></li>
+                <li><a href="about.html">O Nas</a></li>
+                <li><a href="products.html">Produkty</a></li>
+                <li><a href="promotions.html">Promocje</a></li>
+                <li><a href="regulations.html">Regulamin</a></li>
+                <li><a href="contact.html">Kontakt</a></li>
+            </ul>
+        </nav>
+        <div id="theme-toggle" class="toggle">
+            <span class="toggle-icon">🌙</span>
+        </div>
+    </header>
+
+    <script>
+
+document.addEventListener("DOMContentLoaded", function () {
+    const themeToggle = document.getElementById('theme-toggle');
+    const savedTheme = localStorage.getItem('theme');
+
+    // Ustaw początkowy tryb
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+        themeToggle.querySelector('.toggle-icon').textContent = "☀️";
+    }
+
+    // Obsługa przełącznika
+    themeToggle.addEventListener('click', function () {
+        document.body.classList.toggle('dark-mode');
+        const isDarkMode = document.body.classList.contains('dark-mode');
+
+        // Zmiana emotki
+        const toggleIcon = themeToggle.querySelector('.toggle-icon');
+        toggleIcon.textContent = isDarkMode ? "☀️" : "🌙";
+
+        // Zapisz wybór użytkownika
+        localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+    });
+});
+            
+        </script>
+
+    <section id="regulations">
+        <h2>Regulamin sklepu internetowego</h2>
+        <p><ul>Zapoznaj się z naszym regulaminem przed dokonaniem zakupu.<br>
+            Wszystkie zakupy w naszym sklepie podlegają poniższym warunkom:</ul></p>
+        <ul><br>
+            Wszystkie ceny produktów są podane w PLN.<br>
+            Dostawa towaru jest realizowana przez firmę kurierską.<br>
+            Zwroty towarów są możliwe w ciągu 14 dni roboczych od daty zakupu.<br>
+            Reklamacje należy składać w formie pisemnej na adres e-mail sklepu.<br><br><br>
+        </ul>
+        <p>Więcej informacji można znaleźć w pełnym regulaminie dostępnym poniżej.</p><br>
+        <a href="#" class="btn-primary">Zobacz Pełny Regulamin</a>
+    </section>
+
+    <footer>
+        <p>  Copyright &copy; 2025 Baitix</p>
+    </footer>
+</body>
+</html>

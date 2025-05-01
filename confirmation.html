@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.png" type="image/png">
+    <title>Podsumowanie zamówienia</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="index.html">
+                <img src="logo.png" alt="Logo Sklepu"></a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Strona Główna</a></li>
+                <li><a href="about.html">O Nas</a></li>
+                <li><a href="products.html">Produkty</a></li>
+                <li><a href="promotions.html">Promocje</a></li>
+                <li><a href="regulations.html">Regulamin</a></li>
+                <li><a href="contact.html">Kontakt</a></li>
+            </ul>
+        </nav>
+        <div id="theme-toggle" class="toggle">
+            <span class="toggle-icon">🌙</span>
+        </div>
+    </header>
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const themeToggle = document.getElementById('theme-toggle');
+            const savedTheme = localStorage.getItem('theme');
+        
+            // Ustaw początkowy tryb
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-mode');
+                themeToggle.querySelector('.toggle-icon').textContent = "☀️";
+            }
+        
+            // Obsługa przełącznika
+            themeToggle.addEventListener('click', function () {
+                document.body.classList.toggle('dark-mode');
+                const isDarkMode = document.body.classList.contains('dark-mode');
+        
+                // Zmiana emotki
+                const toggleIcon = themeToggle.querySelector('.toggle-icon');
+                toggleIcon.textContent = isDarkMode ? "☀️" : "🌙";
+        
+                // Zapisz wybór użytkownika
+                localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+            });
+        });
+                    
+                </script>
+    <style>
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+
+.container {
+    width: 80%;
+    max-width: 800px;
+    margin: 20px auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: #333;
+    margin-bottom: 15px;
+    text-align: center;
+    border-top: 1px dashed #000000; /* Light dashed line for separation */
+    margin-top: 15px;
+    padding-top: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+input, select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.btn-primary {
+    display: block;
+    margin: 20px auto; /* This will center the button horizontally */
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.section-hidden {
+    display: none;
+}
+
+.error {
+    color: red;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}
+
+
+
+#product-total p {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #000;
+    text-align: center;
+}
+
+#product-total {
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px;
+    border-top: 1px solid #ddd; /* Soft border for section separation */
+    background-color: #f9f9f9; /* Subtle background to distinguish pricing section */
+    border-radius: 8px;
+}
+
+#product-total h2 {
+    font-size: 1.3rem; /* Slightly smaller and refined */
+    color: #333;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+#product-price, #delivery-cost, #final-total {
+    margin: 10px 0; /* Consistent spacing */
+    font-size: 1.2rem; /* Uniform size for all prices */
+}
+
+#product-price {
+    color: #333; /* Neutral color for product price */
+    font-weight: 500; /* Moderate emphasis */
+}
+
+#delivery-cost {
+    color: #444; /* Slightly darker for readability */
+    font-weight: 400;
+}
+
+#final-total {
+    font-size: 1.4rem; /* Highlighting final total slightly more */
+    color: #28a745; /* Green for positive emphasis */
+    font-weight: 600; /* Balanced emphasis without being overwhelming */
+    margin-top: 15px;
+    border-top: 1px dashed #ccc; /* Light dashed line for separation */
+    padding-top: 10px;
+}
+
+#free-shipping-notice {
+    color: #0056b3; /* Deep blue for clear focus */
+    font-weight: bold;
+    font-size: 1rem;
+    margin: 10px auto 20px;
+    text-align: center;
+    background: #e6f7ff; /* Light blue background for visual appeal */
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #b3daff; /* Subtle outline */
+    max-width: 90%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Minimal shadow for depth */
+}
+
+.back-arrow {
+    position: absolute; /* Strzałka pozycjonowana względem rodzica */
+    top: 10px; /* Odstęp od górnej krawędzi kontenera */
+    left: 10px; /* Odstęp od lewej krawędzi kontenera */
+    text-decoration: none;
+    color: #000000; /* Niebieski kolor tekstu */
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #f9f9f9; /* Jasne tło */
+    border: 1px solid #ccc; /* Subtelne obramowanie */
+    border-radius: 5px;
+    padding: 5px 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Delikatny cień */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.arrow-container {
+    position: relative; /* Pozycjonowanie tylko dla strzałki */
+    width: 100%; /* Dopasowanie do szerokości kontenera karty produktu */
+}
+
+.back-arrow:hover {
+    background-color: #007bff; /* Niebieskie tło na hover */
+    color: #fff; /* Biały tekst na hover */
+}
+
+.dark-mode .back-arrow:hover
+{
+    background-color: #818181; /* Niebieskie tło na hover */
+    color: #fff; /* Biały tekst na hover */
+}
+    </style>
+</head>
+<body>
+
+
+    
+<div class="container">
+    <div class="arrow-container">
+        <a href="checkout.html" class="back-arrow" title="Wróć na stronę z produktami">&larr; Powrót</a>
+    </div><br><br><br>
+    <h2>Twoje dane dostawy</h2>
+    <div class="section">
+        <label for="full-name">Imię i nazwisko</label>
+        <input type="text" id="full-name" placeholder="Wpisz swoje imię i nazwisko">
+
+        <label for="email">Adres e-mail</label>
+        <input type="email" id="email" placeholder="Wpisz swój e-mail">
+
+        <label for="phone">Numer telefonu</label>
+        <input type="text" id="phone" placeholder="Wpisz numer telefonu">
+    </div>
+
+    <h2>Opcje dostawy</h2>
+    <div class="section">
+        <label for="delivery-method">Wybierz sposób dostawy</label>
+        <select id="delivery-method">
+            <option value="paczkomat">Paczkomat (+17 zł)</option>
+            <option value="kurier">Kurier (+20 zł)</option>
+            <option value="za-pobraniem">Za pobraniem (+25 zł)</option>
+        </select>
+    </div>
+
+    <div id="additional-info" class="section-hidden">
+        <label for="street">Ulica</label>
+        <input type="text" id="street" placeholder="Podaj ulicę">
+        <label for="building-number">Numer budynku</label>
+        <input type="text" id="building-number" placeholder="Podaj numer budynku">
+        <label for="postal-code">Kod pocztowy</label>
+        <input type="text" id="postal-code" placeholder="Podaj kod pocztowy">
+        <label for="city">Miasto</label>
+        <input type="text" id="city" placeholder="Podaj miasto">
+        <label for="parcel-address" class="section-hidden">Adres paczkomatu</label>
+        <input type="text" id="parcel-address" class="section-hidden" placeholder="Podaj adres paczkomatu">
+    </div>
+
+    <h2>Opcje płatności</h2>
+    <div class="section">
+        <label for="payment-method">Wybierz sposób płatności</label>
+        <select id="payment-method">
+            <option value="przelew">Przelew</option>
+            <option value="blik">BLIK</option>
+            <option value="gotowka">Gotówka</option>
+        </select><br><br>
+    </div>
+
+    <!-- Section to display the total price -->
+    <div id="product-total">
+        <!-- Free Shipping Notice -->
+        <div id="free-shipping-notice">Darmowa dostawa przy zamówieniach od 200 zł!</div>
+    
+        <!-- Product Prices -->
+        <p id="product-price">Cena towaru: ...</p>
+        <p id="delivery-cost">Cena dostawy: ...</p>
+        <p id="final-total">Cena ogólna: ...</p>
+    </div>
+
+    <button id="confirm-order"class="btn-primary">Potwierdź zamówienie</button>
+</div>
+
+<script>
+
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const productPriceElement = document.getElementById("product-price");
+    const deliveryCostElement = document.getElementById("delivery-cost");
+    const finalTotalElement = document.getElementById("final-total");
+    const confirmOrderButton = document.getElementById("confirm-order");
+    const deliveryMethodElement = document.getElementById("delivery-method");
+    const paymentMethodElement = document.getElementById("payment-method");
+    const additionalInfoElement = document.getElementById("additional-info");
+
+    // Retrieve totals and discount state from localStorage
+    const normalTotal = parseFloat(localStorage.getItem("total")) || 0;
+    const discountedTotal = localStorage.getItem("discountedTotal"); // Retrieve promo price, if exists
+    const promoCodeApplied = localStorage.getItem("promoCodeApplied") === "true";
+
+    // Display styled product prices in a single line
+    productPriceElement.innerHTML = `
+        Cena produktów: 
+        ${promoCodeApplied && discountedTotal !== null
+            ? `<span style="text-decoration: line-through; color: #888;">${normalTotal.toFixed(2)} zł</span>
+               <span style="color: red; ">${parseFloat(discountedTotal).toFixed(2)} zł</span>`
+            : `<span>${normalTotal.toFixed(2)} zł</span>`}
+    `;
+
+    // Default delivery fee for "Paczkomat"
+    let deliveryFee = 17;
+
+    // Update delivery and final total prices
+    const updateTotal = () => {
+        // Calculate the base total considering promo price
+        const baseTotal = promoCodeApplied && discountedTotal !== null
+            ? parseFloat(discountedTotal) // Używaj tylko promocyjnej ceny, jeśli promoCodeApplied
+            : normalTotal;
+
+        // Determine delivery fee based on total amount
+        deliveryFee = baseTotal >= 200 ? 0 : (deliveryMethodElement.value === "paczkomat" ? 17 : (deliveryMethodElement.value === "kurier" ? 20 : 25));
+
+        // Update delivery cost element
+        deliveryCostElement.textContent = `Cena dostawy: ${deliveryFee > 0 ? deliveryFee + " zł" : "Darmowa"}`;
+
+        // Calculate and display the final total
+        const updatedTotal = baseTotal + deliveryFee;
+        finalTotalElement.textContent = `Cena ogólna: ${updatedTotal.toFixed(2)} zł`;
+    };
+
+    // Set "Paczkomat" as default delivery method
+    deliveryMethodElement.value = "paczkomat";
+    paymentMethodElement.innerHTML = `
+        <option value="blik">BLIK</option>
+        <option value="przelew">Przelew</option>
+    `;
+    additionalInfoElement.classList.remove("section-hidden");
+    additionalInfoElement.innerHTML = `
+        <label for="parcel-address">Adres paczkomatu</label>
+        <input type="text" id="parcel-address" placeholder="Podaj adres paczkomatu">
+    `;
+    updateTotal(); // Initialize total with default delivery fee
+
+    // Update totals dynamically based on delivery method selection
+    deliveryMethodElement.addEventListener("change", () => {
+        const deliveryMethod = deliveryMethodElement.value;
+
+        if (deliveryMethod === "paczkomat") {
+            deliveryFee = 17;
+            paymentMethodElement.innerHTML = `
+                <option value="blik">BLIK</option>
+                <option value="przelew">Przelew</option>
+            `;
+            additionalInfoElement.innerHTML = `
+                <label for="parcel-address">Adres paczkomatu</label>
+                <input type="text" id="parcel-address" placeholder="Podaj adres paczkomatu">
+            `;
+        } else if (deliveryMethod === "kurier") {
+            deliveryFee = 20;
+            paymentMethodElement.innerHTML = `
+                <option value="blik">BLIK</option>
+                <option value="przelew">Przelew</option>
+            `;
+            additionalInfoElement.innerHTML = `
+                <label for="street">Ulica</label>
+                <input type="text" id="street" placeholder="Podaj ulicę">
+                <label for="building-number">Numer budynku</label>
+                <input type="text" id="building-number" placeholder="Podaj numer budynku">
+                <label for="postal-code">Kod pocztowy</label>
+                <input type="text" id="postal-code" placeholder="Podaj kod pocztowy">
+                <label for="city">Miasto</label>
+                <input type="text" id="city" placeholder="Podaj miasto">
+            `;
+        } else if (deliveryMethod === "za-pobraniem") {
+            deliveryFee = 25;
+            paymentMethodElement.innerHTML = `
+                <option value="gotówka">Gotówka</option>
+            `;
+            additionalInfoElement.innerHTML = `
+                <label for="street">Ulica</label>
+                <input type="text" id="street" placeholder="Podaj ulicę">
+                <label for="building-number">Numer budynku</label>
+                <input type="text" id="building-number" placeholder="Podaj numer budynku">
+                <label for="postal-code">Kod pocztowy</label>
+                <input type="text" id="postal-code" placeholder="Podaj kod pocztowy">
+                <label for="city">Miasto</label>
+                <input type="text" id="city" placeholder="Podaj miasto">
+            `;
+        }
+
+        updateTotal(); // Update total when delivery method changes
+    });
+
+    // Handle order confirmation
+    confirmOrderButton.addEventListener("click", () => {
+        const fullName = document.getElementById("full-name").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const phone = document.getElementById("phone").value.trim();
+        const deliveryMethod = deliveryMethodElement.value;
+        const paymentMethod = paymentMethodElement.value;
+
+        let additionalFieldsValid = true;
+        let addressDetails = "";
+
+        if (deliveryMethod === "paczkomat") {
+            const parcelAddress = document.getElementById("parcel-address").value.trim();
+            if (!parcelAddress) additionalFieldsValid = false;
+            addressDetails = `Adres paczkomatu: ${parcelAddress}`;
+        } else {
+            const street = document.getElementById("street").value.trim();
+            const buildingNumber = document.getElementById("building-number").value.trim();
+            const postalCode = document.getElementById("postal-code").value.trim();
+            const city = document.getElementById("city").value.trim();
+
+            if (!street || !buildingNumber || !postalCode || !city) additionalFieldsValid = false;
+            addressDetails = `${street} ${buildingNumber}, ${postalCode} ${city}`;
+        }
+
+        if (!fullName || !email || !phone || !additionalFieldsValid) {
+            alert("Proszę wypełnić wszystkie dane dostawy!");
+            return;
+        }
+
+        const baseTotal = promoCodeApplied && discountedTotal !== null
+            ? parseFloat(discountedTotal)
+            : normalTotal;
+        const totalPrice = baseTotal + deliveryFee;
+
+        alert(`Zamówienie potwierdzone!\nImię i nazwisko: ${fullName}\nE-mail: ${email}\nTelefon: ${phone}\nAdres: ${addressDetails}\nDostawa: ${deliveryMethod}\nPłatność: ${paymentMethod}\nCena produktów: ${baseTotal.toFixed(2)} zł\nCena dostawy: ${deliveryFee > 0 ? deliveryFee + " zł" : "Darmowa"}\nCena ogólna: ${totalPrice.toFixed(2)} zł`);
+
+        // Clear the cart and totals
+        localStorage.removeItem("cart");
+        localStorage.removeItem("total");
+        localStorage.removeItem("discountedTotal");
+        localStorage.removeItem("promoCodeApplied");
+        window.location.href = "confirmation.html"; // Redirect to confirmation page
+    });
+});
+
+
+
+
+
+    </script>
+    
+    <footer>
+        <p>  Copyright &copy; 2025 Baitix</p>
+    </footer>
+
+</body>
+</html>

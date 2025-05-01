@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.png" type="image/png">
+    <title>Kontakt - Sklep Internetowy</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="index.html">
+                <img src="logo.png" alt="Logo Sklepu"></a>
+        </div>
+
+        <script>
+
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.querySelector('form'); // Pobranie formularza kontaktowego
+
+    form.addEventListener('submit', function (event) {
+        event.preventDefault(); // Zatrzymanie domyślnego zachowania przeglądarki
+
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const message = document.getElementById('message').value.trim();
+
+        // Sprawdzenie, czy wszystkie pola są wypełnione
+        if (!name || !email || !message) {
+            alert("Proszę uzupełnić wszystkie pola!");
+            return;
+        }
+
+        // Sprawdzenie poprawności adresu e-mail
+        if (!validateEmail(email)) {
+            alert("Proszę wprowadzić poprawny adres e-mail!");
+            return;
+        }
+
+        // Wyświetlenie komunikatu sukcesu
+        alert("Dziękujemy za przesłanie formularza! Skontaktujemy się z Tobą wkrótce.");
+        console.log("Imię i nazwisko:", name);
+        console.log("E-mail:", email);
+        console.log("Wiadomość:", message);
+
+        // Wyczyść formularz po wysłaniu
+        form.reset();
+    });
+
+    // Funkcja walidująca adres e-mail
+    function validateEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Wzór walidacji e-maila
+        return re.test(email);
+    }
+});
+
+        </script>
+        
+        <nav>
+            <ul>
+                <li><a href="index.html">Strona Główna</a></li>
+                <li><a href="about.html">O Nas</a></li>
+                <li><a href="products.html">Produkty</a></li>
+                <li><a href="promotions.html">Promocje</a></li>
+                <li><a href="regulations.html">Regulamin</a></li>
+                <li><a href="contact.html">Kontakt</a></li>
+            </ul>
+        </nav>
+        <div id="theme-toggle" class="toggle">
+            <span class="toggle-icon">🌙</span>
+        </div>
+    </header>
+
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+    const themeToggle = document.getElementById('theme-toggle');
+    const savedTheme = localStorage.getItem('theme');
+
+    // Ustaw początkowy tryb
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+        themeToggle.querySelector('.toggle-icon').textContent = "☀️";
+    }
+
+    // Obsługa przełącznika
+    themeToggle.addEventListener('click', function () {
+        document.body.classList.toggle('dark-mode');
+        const isDarkMode = document.body.classList.contains('dark-mode');
+
+        // Zmiana emotki
+        const toggleIcon = themeToggle.querySelector('.toggle-icon');
+        toggleIcon.textContent = isDarkMode ? "☀️" : "🌙";
+
+        // Zapisz wybór użytkownika
+        localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+    });
+});
+            
+        </script>
+
+    <section id="contact">
+        <h2>Kontakt z nami</h2>
+        <form>
+            <label for="name">Imię:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="message">Wiadomość:</label>
+            <textarea id="message" name="message" required></textarea>
+
+            <button type="submit" class="btn-primary">Wyślij</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>  Copyright &copy; 2025 Baitix</p>
+    </footer>
+</body>
+</html>

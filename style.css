@@ -1,0 +1,878 @@
+/* Podstawowe style */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Cała wysokość okna przeglądarki */
+    margin: 0;
+    
+}
+
+
+/* Nagłówek */
+header {
+    background-color: var(--secondary-color);
+    color: var(--text-color-light);
+    padding: 20px 10%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 5%;
+}
+
+header .logo img {
+    height: 100px;
+    
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+
+}
+
+nav ul li {
+    margin-left: 30px;
+}
+
+nav ul li a {
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--text-color-light);
+    text-decoration: none; /* Usuwa podkreślenie */
+    transition: color 0.3s;
+}
+
+nav ul li a:hover {
+    color: var(--primary-color);
+}
+
+/* Hero - Strona Główna */
+.hero {
+    background: url('images/hero-image.jpg') no-repeat center center/cover;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    color: var(--text-color-light);
+    text-align: center;
+    
+}
+
+.centered-img {
+    width: 350px;  /* Szerokość obrazka */
+    height: auto;  /* Wysokość dostosowana proporcjonalnie */
+    display: block;  /* Zmienia obrazek na blokowy element */
+    margin: 2px auto 0 auto;  /* Margines: 10% od góry, automatyczne marginesy poziome */
+}
+
+.hero-text h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    color: black;
+}
+
+.hero-text p {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+    color: black;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    padding: 15px 30px;
+    color: var(--text-color-light);
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    transition: background-color 0.3s;
+    text-decoration: none; /* Usuwa podkreślenie */
+    cursor: pointer; /* Ensure the cursor changes to a pointer */
+}
+
+.btn-primary:hover {
+    background-color: #2980b9;
+}
+
+
+#newsletter {
+    margin: 30px 5%;
+    padding: 15px;
+    background-color: #f7f7f7;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    font-size: 14px; /* Zmniejszenie ogólnego rozmiaru sekcji */
+}
+
+#newsletter h2 {
+    font-size: 1.8rem; /* Zmniejszenie rozmiaru nagłówka */
+    color: #333;
+    margin-bottom: 10px;
+}
+
+#newsletter p {
+    font-size: 1rem; /* Mniejszy opis tekstowy */
+    color: #555;
+    margin-bottom: 15px;
+}
+
+#newsletter-form {
+    display: flex; /* Formularz w jednej linii */
+    justify-content: center;
+    align-items: center;
+    gap: 10px; /* Odstęp między polem a przyciskiem */
+}
+
+#newsletter-form input {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    width: 250px; /* Mniejsze pole e-maila */
+}
+
+#newsletter-form input:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 4px rgba(0, 128, 255, 0.5);
+}
+
+#newsletter-form button {
+    padding: 8px 15px;
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#newsletter-form button:hover {
+    background-color: #2980b9;
+}
+
+#newsletter-message {
+    margin-top: 15px;
+    font-size: 1.2rem; /* Powiększenie tekstu */
+    color: green; /* Zielony kolor dla pozytywnego komunikatu */
+    font-weight: bold; /* Wyróżnienie komunikatu */
+    text-align: center; /* Wyrównanie do środka */
+}
+
+
+/* Sekcje */
+section {
+    padding: 50px 10%;
+    text-align: center;
+}
+
+/* O nas */
+#about {
+    height: 100%;
+    background-color: #f9f9f9;
+    padding: 50px 10%;
+}
+
+#about h2 {
+    font-size: 2.5rem;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#about p {
+    font-size: 1.2rem;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+#about ul {
+    font-size: 1.2rem;
+    color: #555;
+    list-style-type: disc; /* Włączenie wypunktowań */
+    list-style-position: inside; /* Punktory blisko tekstu */
+    padding: 0; /* Usunięcie domyślnego wcięcia */
+    margin: 0; /* Usunięcie domyślnego marginesu */
+    text-align: center; /* Wyśrodkowanie tekstu na stronie */
+}
+
+
+
+
+
+
+
+
+
+/* Responsywność */
+@media screen and (max-width: 1200px) {
+    header {
+        flex-direction: column;
+        text-align: center;
+        height: 30%;
+    }
+
+    nav ul {
+        flex-direction: column;
+    }
+
+    nav ul li {
+        margin-left: 0;
+        margin-bottom: 10px;
+    }
+}
+
+/* Footer */
+footer {
+    background-color: var(--secondary-color);
+    color: var(--text-color-light);
+    padding: 20px 0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    margin-top: auto;
+    z-index: 10; /* Warstwa, aby stopka nie nachodziła na treść */
+    position: relative; /* Zapewnia kontrolę nad układem stopki */
+    width: 100%; /* Upewnia się, że stopka pokrywa pełną szerokość */
+}
+
+/* Stylizacja formularza kontaktowego */
+form {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 100%;
+    
+}
+
+#contact h2 {
+    font-size: 2.5rem;
+    color: #333;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+form label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: block;
+    
+    
+}
+
+form input,
+form textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+form textarea {
+    height: 150px;
+}
+
+form button {
+    padding: 12px 20px;
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+form button:hover {
+    background-color: #2980b9;
+}
+
+/* Przyciski hover */
+.btn-primary {
+    background-color: var(--primary-color);
+    padding: 15px 30px;
+    color: var(--text-color-light);
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    transition: background-color 0.3s, transform 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background-color: #2980b9;
+    transform: translateY(-3px); /* Delikatny ruch w górę */
+}
+
+.btn-secondary {
+    background-color: var(--primary-color);
+    padding: 15px 30px;
+    background-color: #ffcc00;
+    color: #000;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    transition: background-color 0.3s, transform 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-secondary:hover {
+    background-color: #646464;
+    transform: translateY(-3px); /* Delikatny ruch w górę */
+}
+
+
+.product-card img {
+    width: 100%;
+    height: auto;
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover img {
+    transform: scale(1.05); /* Powiększenie obrazu na hover */
+}
+
+/* Karty produktów */
+.product-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    justify-content: space-evenly; /* Centruje produkty równomiernie */
+    gap: 30px;
+    padding: 30px 10%;
+    
+}
+
+
+#products {
+    height: 100%;
+}
+
+.product-card {
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Rozkłada elementy równomiernie */
+    align-items: center; /* Wyśrodkowuje elementy poziomo */
+    height: 100%; /* Zapewnia pełną wysokość kontenera */
+    
+}
+
+.cart-icon {
+    position: fixed;
+    top: 25px;
+    right: 20px;
+    background-color: #55db1f;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cart-icon:hover {
+    background-color: #005f73;
+}
+
+#cart {
+    position: fixed;
+    top: 110px;
+    right: 20px;
+    width: 300px;
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    display: none; /* Koszyk ukryty domyślnie */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        z-index: 1000; /* Koszyk jest na najwyższym planie */
+}
+
+#cart h2 {
+    margin-top: 0;
+    font-size: 21px;
+    text-align: center;
+}
+
+#cart-items {
+    list-style: none;
+    padding: 0;
+}
+
+#cart-items li {
+    display: flex;
+    flex-direction: row; /* Nadal układamy elementy pionowo */
+    justify-content: space-between; /* Rozdziel elementy na końce */
+    align-items: center; /* Wyrównanie elementów w pionie */
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.cart-item {
+    display: flex;
+    flex-direction: column; /* Wszystkie elementy w kolumnie */
+    align-items: flex-start;
+    flex-grow: 1; /* Elastyczność rozmiaru */
+
+}
+
+#cart-items li img {
+    width: 100px;
+    height: 100px;
+    margin-left: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    align-self: center; /* Ustawienie obrazu na środku względem innych elementów */
+  }
+
+.cart-item-name {
+    font-weight: bold;
+    margin-bottom: 5px;
+    max-width: 150px; /* Maksymalna szerokość nazwy produktu */
+    overflow-wrap: break-word; /* Złam bardzo długie słowa */
+    word-wrap: break-word; /* Dla zgodności z innymi przeglądarkami */
+    white-space: normal; /* Pozwól tekstowi zawijać się na nową linię */
+    text-align: left; /* Wyrównaj tekst do lewej */
+}
+
+.cart-item-quantity {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+.cart-item-price {
+    display: flex;
+    flex-direction: row; /* Stara i nowa cena obok siebie */
+    align-items: center; /* Wyrównanie w pionie */
+    gap: 10px; /* Odstęp między cenami */
+}
+
+.normal-price {
+    text-decoration: line-through; /* Przekreślenie starej ceny */
+    color: #999;
+}
+
+.promo-price {
+    font-weight: bold;
+    color: #e60000; /* Kolor wyróżniający nową cenę */
+}
+
+#cart-count {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: #e60000;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 50%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#cart-total {
+    margin-top: 10px;
+    font-size: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Wyrównanie do lewej */
+}
+
+#cart-total .normal-price {
+    text-decoration: line-through; /* Przekreślenie sumy bez promocji */
+    color: #999;
+    margin-bottom: 5px;
+}
+
+#cart-total .promo-price {
+    font-weight: bold;
+    color: #e60000; /* Wyróżnienie promocji */
+}
+
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.product-card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+#products h2 {
+    font-size: 2.5rem;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.product-card h3 {
+    margin: 10px 0; /* Zwiększa równomierne odstępy od góry i dołu */
+    font-size: 1.5rem;
+    text-align: center; /* Tekst będzie zawsze na środku */
+}
+
+.product-card a {
+color:black;
+text-decoration: none; /* Usunięcie podkreślenia */
+}
+
+
+.product-card .price {
+    display: flex; /* Używamy Flexbox */
+    justify-content: center; /* Wyśrodkowuje zawartość poziomo */
+    align-items: center; /* Wyrównuje elementy pionowo */
+    gap: 10px; /* Dodaje odstęp między cenami */
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    margin-top: auto;
+}
+
+.old-price {
+    text-decoration: line-through;
+    color: gray;
+    margin-right: 1px;
+}
+
+.new-price {
+    color: red;
+    font-size: 24px;
+    
+}
+
+
+.product-card .btn-primary {
+    padding: 12px 25px;
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.product-card .btn-primary:hover {
+    background-color: #2980b9;
+}
+
+
+
+
+/* Dostosowanie na większe ekrany */
+@media screen and (min-width: 1024px) {
+    header {
+        padding: 10px 10%;
+    }
+
+    .hero-text h1 {
+        font-size: 4rem;
+    }
+
+    .hero-text p {
+        font-size: 2rem;
+    }
+
+
+}
+
+/* Wzmacnianie dostępności */
+a:focus, button:focus {
+    outline: 3px solid var(--primary-color);
+}
+
+a:active, button:active {
+    background-color: #2980b9; /* Zmiana koloru przy kliknięciu */
+}
+
+/* Ogólne style dla sekcji promocji */
+#promotions {
+    background-color: #f9f9f9;
+    padding: 50px 10%;
+    height: 100%;
+}
+
+#promotions h2 {
+    font-size: 2.5rem;
+    color: #333;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.promo-card {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+}
+
+.promo-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.promo-card h3 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.promo-card p {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.promo-card .btn-primary {
+    padding: 12px 25px;
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.promo-card .btn-primary:hover {
+    background-color: #2980b9;
+}
+
+/* Ogólne style dla sekcji regulaminu */
+#regulations {
+    height: 100%;
+    background-color: #f9f9f9;
+    padding: 50px 10%;
+}
+
+#regulations h2 {
+    font-size: 2.5rem;
+    color: #333;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+#regulations p {
+    font-size: 1.2rem;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+#regulations ul {
+    font-size: 1.2rem;
+    color: #555;
+    margin-left: 30px;
+}
+
+#regulations ul li {
+    margin-bottom: 15px;
+}
+
+
+:root {
+    --primary-color: #12e747; /* Kolor przycisków i akcentów */
+    --secondary-color: #32aed4; /* Opcjonalny drugi kolor */
+    --text-color-light: #fff;
+    --text-color-dark: #333;
+    --background-color-light: #f9f9f9;
+}
+
+.dark-mode {
+    --secondary-color: #1e1e1e;
+    
+}
+
+.dark-mode h1, .dark-mode h2, .dark-mode p {
+    color: var(--text-color);
+}
+
+body.dark-mode {
+    background-color: #5e5e5e;
+
+}
+
+
+body.dark-mode #promotions {
+    background-color: var(--background-dark); /* Kolor dla ciemnego motywu */
+}
+
+
+body.dark-mode #checkout {
+    background-color: var(--background-dark); /* Kolor dla ciemnego motywu */
+}
+
+
+.dark-mode #promotions h2 {
+    color:white;
+}
+
+body.dark-mode #about {
+    background-color: var(--background-dark); /* Kolor dla ciemnego motywu */
+}
+
+.dark-mode #about {
+    color: white; /* Domyślny kolor dla całej sekcji */
+}
+
+.dark-mode #about h2,
+.dark-mode #about p,
+.dark-mode #about h3,
+.dark-mode #about ul,
+.dark-mode #about li,
+.dark-mode #about b,
+.dark-mode #about br {
+    color: inherit; /* Dziedziczenie koloru z nadrzędnego */
+}
+
+/* Specjalny styl dla list (ul, li) */
+.dark-mode #about ul,
+.dark-mode #about li {
+    list-style-type: disc; /* Przywraca domyślne kropki */
+}
+
+
+/* Dla wzmocnionych elementów <b> */
+.dark-mode #about b {
+    font-weight: bold; /* Zachowanie pogrubienia */
+    color: inherit; /* Dziedziczenie białego koloru */
+}
+
+body.dark-mode #regulations {
+    background-color: var(--background-dark); /* Kolor dla ciemnego motywu */
+}
+
+
+.dark-mode #regulations {
+    color: white; /* Domyślny kolor dla całej sekcji */
+}
+
+.dark-mode #regulations h2,
+.dark-mode #regulations p,
+.dark-mode #regulations h3,
+.dark-mode #regulations ul,
+.dark-mode #regulations li,
+.dark-mode #regulations b,
+.dark-mode #regulations br {
+    color: inherit; /* Dziedziczenie koloru z sekcji nadrzędnej */
+}
+
+.dark-mode #contact h2 {
+    color: white; /* Domyślny kolor dla całej sekcji */
+}
+
+.dark-mode #products h2 {
+    color: white; /* Domyślny kolor dla całej sekcji */
+}
+
+.dark-mode .btn-primary {
+    background-color: #1e1e1e;
+}
+
+.dark-mode .btn-primary:hover {
+    background-color:#818181; /* Ciemniejszy kolor przy najechaniu */
+}
+
+.dark-mode #newsletter-form button {
+    background-color: #1e1e1e;
+}
+
+.dark-mode #newsletter-form button:hover {
+    background-color: #818181;
+}
+
+button#theme-toggle {
+    padding: 10px;
+    background: none; /* Bez tła */
+    color: inherit; /* Dziedziczenie koloru */
+    border: none; /* Bez obramowania */
+    border-radius: 50%; /* Zaokrąglony */
+    font-size: 1.5rem; /* Rozmiar emotki */
+    cursor: pointer;
+    transition: transform 0.3s, color 0.3s;
+}
+
+button#theme-toggle:hover {
+    transform: scale(1.1);
+}
+
+button#theme-toggle:active {
+    transform: scale(0.95); /* Kliknięcie wizualnie zmniejsza */
+}
+
+button#theme-toggle:focus {
+    outline: none; /* Usunięcie obramówki focus */
+}
+
+/* Kontener przełącznika */
+#theme-toggle {
+    width: 50px;
+    height: 25px;
+    background-color: #ddd; /* Tło przełącznika w jasnym trybie */
+    border-radius: 25px;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Wewnątrz element - ikona */
+#theme-toggle .toggle-icon {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: #fff; /* Ikona koloru jasnego */
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+/* Dark mode - zmiana pozycji i tła */
+body.dark-mode #theme-toggle {
+    background-color: #444; /* Tło dla trybu ciemnego */
+}
+
+
+body.dark-mode #theme-toggle .toggle-icon {
+    left: 25px; /* Przesunięcie w prawo */
+    background-color: #000; /* Ciemniejsze tło dla ikony */
+    color: #fff; /* Biały tekst */
+}

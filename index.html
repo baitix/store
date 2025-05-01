@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Profesjonalny sklep internetowy z najlepszymi produktami.">
+    <meta name="keywords" content="sklep internetowy, promocje, produkty, zakupy">
+    <meta name="author" content="Baitix">
+    <link rel="icon" href="favicon.png" type="image/png">
+    <title>Baitix - Twoje Zakupy Online</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="index.html">
+            <img src="logo.png" alt="Logo Sklepu"></a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Strona Główna</a></li>
+                <li><a href="about.html">O Nas</a></li>
+                <li><a href="products.html">Produkty</a></li>
+                <li><a href="promotions.html">Promocje</a></li>
+                <li><a href="regulations.html">Regulamin</a></li>
+                <li><a href="contact.html">Kontakt</a></li>
+            </ul>
+        </nav>
+
+        <div id="theme-toggle" class="toggle">
+            <span class="toggle-icon">🌙</span>
+        </div>
+
+    </header>
+    
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+    const themeToggle = document.getElementById('theme-toggle');
+    const savedTheme = localStorage.getItem('theme');
+
+    // Ustaw początkowy tryb
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+        themeToggle.querySelector('.toggle-icon').textContent = "☀️";
+    }
+
+    // Obsługa przełącznika
+    themeToggle.addEventListener('click', function () {
+        document.body.classList.toggle('dark-mode');
+        const isDarkMode = document.body.classList.contains('dark-mode');
+
+        // Zmiana emotki
+        const toggleIcon = themeToggle.querySelector('.toggle-icon');
+        toggleIcon.textContent = isDarkMode ? "☀️" : "🌙";
+
+        // Zapisz wybór użytkownika
+        localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+    });
+});
+    
+</script>
+
+
+    <section id="home" class="hero">
+        <div class="hero-text"><img src="logo1.png" alt="Opis obrazka" class="centered-img"><br><br>
+            <h1>Witaj w naszym sklepie!</h1>
+            <p>Najlepsze produkty czekają na Ciebie. Zakupy online nigdy nie były prostsze.</p><br><br>
+            <a href="products.html" class="btn-primary">Zobacz Produkty</a><br><br><br>
+        </div>
+    </section>
+
+
+    <footer>
+        <p>  Copyright &copy; 2025 Baitix</p>
+    </footer>
+</body>
+</html>

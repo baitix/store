@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.png" type="image/png">
+    <title>Produkty - Sklep Internetowy</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="index.html">
+                <img src="logo.png" alt="Logo Sklepu"></a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Strona Główna</a></li>
+                <li><a href="about.html">O Nas</a></li>
+                <li><a href="products.html">Produkty</a></li>
+                <li><a href="promotions.html">Promocje</a></li>
+                <li><a href="regulations.html">Regulamin</a></li>
+                <li><a href="contact.html">Kontakt</a></li>
+            </ul>
+        </nav>
+        <div id="theme-toggle" class="toggle">
+            <span class="toggle-icon">🌙</span>
+        </div>
+    </header>
+
+<style>
+        input {
+            width: 300px;
+            padding: 8px;
+            margin-right: 10px;
+            font-size: 18px;
+        }
+        button {
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        .results {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .remove-btn {
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-left: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.remove-btn:hover {
+    background-color: darkred;
+}
+</style>
+
+<script>
+
+// Funkcja zapisywania pozycji przewijania
+function saveScrollPosition() {
+    const scrollPosition = window.scrollY; // Aktualna pozycja przewijania
+    localStorage.setItem('scrollPosition', scrollPosition); // Zapisz ją w localStorage
+}
+
+// Funkcja przywracania pozycji przewijania
+function restoreScrollPosition() {
+    const scrollPosition = localStorage.getItem('scrollPosition'); // Pobierz pozycję z localStorage
+    if (scrollPosition !== null) {
+        window.scrollTo(0, parseInt(scrollPosition, 10)); // Przewiń stronę do zapisanej pozycji
+    }
+}
+
+// Inicjalizacja zapisywania i przywracania scrolla
+document.addEventListener("DOMContentLoaded", function () {
+    // Przywróć pozycję przewijania po załadowaniu strony
+    restoreScrollPosition();
+
+    // Zapisz pozycję przewijania przed opuszczeniem strony
+    document.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', saveScrollPosition);
+    });
+});
+
+function removeDiacritics(str) { 
+    return str.normalize("NFD").replace(/\p{Diacritic}/gu, ""); 
+} 
+
+const searchMappings = { 
+    'maslowy': 'Kwas Masłowy 8mm', 
+    'kwas': 'Kwas Masłowy 8mm', 
+    'maslo': 'Kwas Masłowy 8mm',
+    'masl': 'Kwas Masłowy 8mm',
+    'kwas masl': 'Kwas Masłowy 8mm',
+    'kwas maslo': 'Kwas Masłowy 8mm',
+    'kwas maslow': 'Kwas Masłowy 8mm',
+}; 
+
+function applySearchMapping(query) { 
+    if (query.includes("kwas") && query.includes("maslowy")) { 
+        return "Kwas Masłowy 8mm"; 
+    } 
+    return searchMappings[query] || query; 
+} 
+
+function sortProducts() {
+    const productList = document.querySelector('.product-list');
+    const products = Array.from(productList.children).filter(product => product.style.display !== "none");
+
+    // Debugowanie sortowania
+    console.log("Sorting products:", products);
+
+    products.sort((a, b) => {
+        const isAvailableA = a.getAttribute('data-available') === "true";
+        const isAvailableB = b.getAttribute('data-available') === "true";
+
+        return isAvailableB - isAvailableA; // Niedostępne na koniec
+    });
+
+    // Dodanie produktów w nowej kolejności
+    products.forEach(product => productList.appendChild(product));
+}
+
+function searchProduct() { 
+    const searchInput = document.getElementById("search");
+    const query = removeDiacritics(searchInput.value.toLowerCase()); 
+    const mappedQuery = applySearchMapping(query).toLowerCase(); 
+    const products = document.querySelectorAll(".product-card"); 
+    let found = false;
+
+    console.log("Search query:", query, "Mapped query:", mappedQuery); // Debugowanie wyszukiwania
+
+    products.forEach(product => { 
+        const productName = removeDiacritics(product.querySelector("h3").textContent.toLowerCase()); 
+        if (productName.includes(mappedQuery)) { 
+            product.style.display = "flex"; 
+            found = true; 
+        } else { 
+            product.style.display = "none"; 
+        } 
+    });
+
+    const productsHeading = document.getElementById("products-heading"); 
+    if (found) {
+        productsHeading.style.display = "block"; 
+        document.getElementById("results").textContent = ""; 
+    } else {
+        productsHeading.style.display = "none"; 
+        document.getElementById("results").textContent = "Brak wyników."; 
+    }
+
+    // Sortowanie produktów po wyszukiwaniu
+    sortProducts();
+}
+
+window.onload = function() { 
+    const searchInput = document.getElementById("search");
+
+    if (searchInput) {
+        let debounceTimeout;
+        searchInput.addEventListener("input", () => { 
+            clearTimeout(debounceTimeout);
+            debounceTimeout = setTimeout(() => {
+                searchProduct();
+            }, 0); 
+        });
+    } else {
+        console.error("Search input element not found.");
+    }
+
+    // Wstępne sortowanie po załadowaniu strony
+    sortProducts();
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+let cart = JSON.parse(localStorage.getItem('cart')) || []; 
+
+function toggleCart() {
+    const cartSection = document.getElementById('cart');
+    cartSection.style.display = cartSection.style.display === 'block' ? 'none' : 'block';
+}
+
+function addToCart(productName, normalPrice, promoPrice, productImageSrc) {
+    const existingProduct = cart.find(item => item.name === productName);
+    if (existingProduct) {
+        existingProduct.quantity++;
+        existingProduct.totalPrice += promoPrice;
+    } else {
+        cart.push({
+            name: productName,
+            normalPrice: normalPrice,
+            promoPrice: promoPrice,
+            quantity: 1,
+            totalPrice: promoPrice,
+            image: productImageSrc
+        });
+    }
+    saveCart(); // Zapisz dane koszyka w localStorage
+    updateCart();
+    updateCartCount(); // Aktualizacja licznika produktów
+}
+
+function updateCart() {
+    const cartItems = document.getElementById('cart-items');
+    const cartTotal = document.getElementById('cart-total');
+
+    cartItems.innerHTML = '';
+    let normalTotal = 0;
+    let promoTotal = 0;
+
+    if (cart.length > 0) {
+        cart.forEach((item, index) => {
+            const li = document.createElement('li');
+            li.style.display = 'flex';
+            li.style.alignItems = 'center';
+            li.style.marginBottom = '10px';
+
+            li.innerHTML = `
+                <div class="cart-item" style="flex-grow: 1;">
+                    <span class="cart-item-name">${item.name}</span>
+                    <span class="cart-item-quantity">${item.quantity} szt</span>
+                    <span class="cart-item-price">
+                        <span class="normal-price">${item.normalPrice * item.quantity} zł</span>
+                        <span class="promo-price">${item.totalPrice} zł</span>
+                    </span>
+                </div>
+                <img src="${item.image}" alt="${item.name}" style="width: 100px; height: 100px; margin-left: 10px; border-radius: 10px; border: 1px solid #ddd;">
+                <button class="remove-btn" onclick="removeFromCart(${index})">X</button>
+            `;
+
+            cartItems.appendChild(li);
+
+            normalTotal += item.normalPrice * item.quantity;
+            promoTotal += item.totalPrice;
+        });
+
+        cartTotal.innerHTML = `
+            <span class="normal-price">Cena bez promocji: ${normalTotal} zł</span>
+            <span class="promo-price">Cena z promocją: ${promoTotal} zł</span><br>
+            <a href="checkout.html" onclick="saveCart()" class="btn-primary">KUP TERAZ</a>
+        `;
+    } else {
+        cartTotal.innerHTML = `<p>Koszyk jest pusty.</p>`;
+    }
+}
+
+function removeFromCart(index) {
+    cart.splice(index, 1);
+    saveCart();
+    updateCart();
+    updateCartCount();
+
+    const cartSection = document.getElementById('cart');
+    cartSection.style.display = 'block'; // Koszyk pozostaje otwarty
+}
+
+function saveCart() {
+    localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+function updateCartCount() {
+    const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
+    document.getElementById('cart-count').textContent = cartCount;
+}
+
+function loadCart() {
+    cart = JSON.parse(localStorage.getItem('cart')) || [];
+    updateCart();
+    updateCartCount();
+}
+
+window.addEventListener('scroll', function () {
+    const cartSection = document.getElementById('cart');
+    if (cartSection.style.display === 'block') {
+        cartSection.style.display = 'none';
+    }
+});
+
+document.addEventListener('click', function (event) {
+    const cartSection = document.getElementById('cart');
+    const cartIcon = document.querySelector('.cart-icon');
+    const isRemoveButton = event.target.classList.contains('remove-btn');
+
+    if (cartSection.style.display === 'block' && 
+        !cartSection.contains(event.target) && 
+        !cartIcon.contains(event.target) &&
+        !isRemoveButton) {
+        cartSection.style.display = 'none';
+    }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    loadCart();
+});
+
+// Wywołaj funkcję załadowania koszyka po załadowaniu strony
+document.addEventListener("DOMContentLoaded", function () {
+    loadCart(); // Synchronizuj dane koszyka przy starcie
+});
+
+
+function notifyMe(productName) {
+    const email = prompt(`Podaj swój e-mail, aby otrzymać powiadomienie o dostępności produktu: ${productName}`);
+    if (email && validateEmail(email)) {
+        alert(`Dziękujemy! Powiadomimy Cię, gdy "${productName}" będzie dostępny.`);
+        // Tu można wysłać e-mail do bazy danych lub API obsługującego powiadomienia
+        console.log(`Zapisano e-mail: ${email} dla produktu: ${productName}`);
+    } else if (!email) {
+        alert("Nie podano adresu e-mail!");
+    } else {
+        alert("Podano nieprawidłowy adres e-mail.");
+    }
+}
+
+function validateEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Prosty wzór weryfikujący e-mail
+    return re.test(email);
+}
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("newsletter-form");
+
+    form.addEventListener("submit", function (event) {
+        event.preventDefault(); // Zatrzymanie domyślnej akcji (przenoszenie strony)
+
+        const email = document.getElementById("newsletter-email").value.trim();
+        
+        // Walidacja emaila
+        if (!validateEmail(email)) {
+            alert("Proszę wprowadzić poprawny adres e-mail!");
+            return;
+        }
+
+        // Wyświetlenie komunikatu w razie sukcesu
+        const messageDiv = document.getElementById("newsletter-message");
+        messageDiv.textContent = "Dziękujemy za zapisanie się do naszego newslettera!";
+        messageDiv.style.color = "green"; // Styl komunikatu
+        console.log(`Zapisano e-mail: ${email}`); // Log do testów
+    });
+
+    function validateEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Prosty wzór walidacji e-maila
+        return re.test(email);
+    }
+});
+
+// Inicjalizacja funkcji po załadowaniu strony
+document.addEventListener("DOMContentLoaded", function () {
+    loadCart(); // Synchronizuj dane koszyka przy starcie
+    sortProducts(); // Posortuj produkty
+    document.getElementById("search").addEventListener("keydown", handleKeyPress); // Obsługa wyszukiwania
+});
+document.addEventListener("DOMContentLoaded", function () {
+    // Clear promo code data when arriving on products.html
+    localStorage.removeItem("discount");
+    localStorage.removeItem("discountedTotal");
+    localStorage.setItem("promoCodeApplied", "false");
+});
+
+
+</script>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+    const themeToggle = document.getElementById('theme-toggle');
+    const savedTheme = localStorage.getItem('theme');
+
+    // Ustaw początkowy tryb
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+        themeToggle.querySelector('.toggle-icon').textContent = "☀️";
+    }
+
+    // Obsługa przełącznika
+    themeToggle.addEventListener('click', function () {
+        document.body.classList.toggle('dark-mode');
+        const isDarkMode = document.body.classList.contains('dark-mode');
+
+        // Zmiana emotki
+        const toggleIcon = themeToggle.querySelector('.toggle-icon');
+        toggleIcon.textContent = isDarkMode ? "☀️" : "🌙";
+
+        // Zapisz wybór użytkownika
+        localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+    });
+});
+        
+    </script>
+
+<button class="cart-icon" onclick="toggleCart()"><img src="koszyk.png" alt="Koszyk">
+    <span id="cart-count">0</span>
+</button>
+
+<section id="cart">
+    <h2>Koszyk</h2><br>
+    <ul id="cart-items"></ul>
+    <p id="cart-total">Cena: 0 zł</p>
+
+</section>
+
+<section id="products">
+    <div class="search-container">
+        <input type="text" id="search" placeholder="Wpisz nazwę produktu..." >
+        <div class="results" id="results"></div>
+    </div>
+    <br><br>
+
+
+
+        <h2 id="products-heading">Nasze Produkty</h2>
+        <div class="product-list">
+
+            <div class="product-card" data-available="true">
+                <a href="truskawka.html">
+                    <img src="truskawka.jpeg" alt="Produkt 1">
+                </a>
+                <br>
+                <a href="truskawka.html">
+                    <h3>Truskawka 8mm</h3>
+                </a>
+                <p class="price">
+                    <span class="old-price">20 zł</span>
+                    <span class="new-price">15 zł</span>
+                </p>
+                <button class="btn-primary" onclick="addToCart('Truskawka 8mm', 20, 15, 'truskawka.jpeg')">Dodaj do koszyka</button>
+            </div>
+
+            <div class="product-card"data-available="true">
+                <a href="pomarancza-czekolada.html">
+                    <img src="pomarancza-czekolada.jpeg" alt="Produkt 2"></a>
+                    
+                <a href="pomarancza-czekolada.html">
+                <h3>Pomarańcza Czekolada 8mm</h3> </a>
+                <p class="price">
+                    <span class="old-price">20 zł</span>
+                    <span class="new-price">15 zł</span>
+                </p>
+                <button class="btn-primary" onclick="addToCart('Pomarańcza Czekolada 8mm', 20, 15, 'pomarancza-czekolada.jpeg')">Dodaj do koszyka</button>
+            </div>
+            <div class="product-card"data-available="false">
+                <a href="ananas.html">
+                <img src="ananas.jpeg" alt="Produkt 3"></a>
+                <br>
+                <a href="ananas.html">
+                <h3>Ananas 8mm</h3></a>
+                <p class="price">  
+                    <span class="new-price">Niedostępny</span>
+                </p>
+                <button class="btn-secondary" onclick="notifyMe('Ananas 8mm')">Powiadom mnie</button>
+            </div>
+            <div class="product-card"data-available="true">
+                <a href="wanilia-kukurydza-konopie.html">
+                <img src="wanilia-kukurydza-konopie.jpeg" alt="Produkt 4"></a>
+                <a href="wanilia-kukurydza-konopie.html">
+                <h3>Wanilia Kukurydza Konopie 8mm</h3></a>
+                <p class="price">
+                    <span class="old-price">20 zł</span>
+                    <span class="new-price">15 zł</span>
+                </p>
+                <button class="btn-primary" onclick="addToCart('Wanilia Kukurydza Konopie 8mm', 20, 15, 'wanilia-kukurydza-konopie.jpeg')">Dodaj do koszyka</button>
+            </div>
+            <div class="product-card"data-available="false">
+                <a href="czosnek.html">
+                <img src="czosnek.jpeg" alt="Produkt 5"></a>
+                <br>
+                <a href="czosnek.html">
+                <h3>Czosnek 8mm</h3></a>
+                <p class="price">
+                    <span class="new-price">Niedostępny</span>
+                </p>
+                <button class="btn-secondary" onclick="notifyMe('Czosnek 8mm')">Powiadom mnie</button>
+            </div>
+            <div class="product-card"data-available="true">
+                <a href="kukurydza.html">
+                <img src="kukurydza.jpeg" alt="Produkt 6"></a>
+                <br>
+                <a href="kukurydza.html">
+                <h3>Kukurydza 8mm</h3></a>
+                <p class="price">
+                    <span class="old-price">20 zł</span>
+                    <span class="new-price">15 zł</span>
+                </p>
+                <button class="btn-primary" onclick="addToCart('Kukurydza 8mm', 20, 15, 'kukurydza.jpeg')">Dodaj do koszyka</button>
+            </div>
+            <div class="product-card"data-available="true">
+                <a href="kwas-maslowy.html">
+                <img src="kwas-maslowy.jpeg" alt="Produkt 7"></a>
+                <br>
+                <a href="kwas-maslowy.html">
+                <h3>Kwas Masłowy 8mm</h3></a>
+                <p class="price">
+                    <span class="old-price">20 zł</span>
+                    <span class="new-price">15 zł</span>
+                </p>
+                <button class="btn-primary" onclick="addToCart('Kwas Masłowy 8mm', 20, 15, 'kwas-maslowy.jpeg')">Dodaj do koszyka</button>
+            </div>
+            <div class="product-card"data-available="true">
+                <a href="orzech-tygrysi.html">
+                <img src="orzech-tygrysi.jpeg" alt="Produkt 8"></a>
+                <br>
+                <a href="orzech-tygrysi.html">
+                <h3>Orzech Tygrysi 8mm</h3></a>
+                <p class="price">
+                    <span class="old-price">20 zł</span>
+                    <span class="new-price">15 zł</span>
+                </p>
+                <button class="btn-primary" onclick="addToCart('Orzech Tygrysi 8mm', 20, 15, 'orzech-tygrysi.jpeg')">Dodaj do koszyka</button>
+            </div>
+           
+
+            <!-- Możesz dodać więcej produktów -->
+        </div>
+    </section>
+
+    <section id="newsletter">
+        <h2>Zapisz się do naszego newslettera</h2>
+        <p>Bądź na bieżąco z najnowszymi promocjami i produktami!</p>
+        <form id="newsletter-form">
+            <input type="email" id="newsletter-email" name="newsletter-email" placeholder="Wpisz swój e-mail..." required>
+            <button type="submit">Zapisz się</button>
+        </form>
+        <div id="newsletter-message"></div>
+    </section>
+
+
+    <footer>
+        <p>  Copyright &copy; 2025 Baitix</p>
+    </footer>
+</body>
+</html>

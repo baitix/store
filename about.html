@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.png" type="image/png">
+    <title>O Nas - Sklep Internetowy</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="index.html">
+                <img src="logo.png" alt="Logo Sklepu"></a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Strona Główna</a></li>
+                <li><a href="about.html">O Nas</a></li>
+                <li><a href="products.html">Produkty</a></li>
+                <li><a href="promotions.html">Promocje</a></li>
+                <li><a href="regulations.html">Regulamin</a></li>
+                <li><a href="contact.html">Kontakt</a></li>
+            </ul>
+        </nav>
+        <div id="theme-toggle" class="toggle">
+            <span class="toggle-icon">🌙</span>
+        </div>
+    </header>
+
+    <script>
+
+document.addEventListener("DOMContentLoaded", function () {
+    const themeToggle = document.getElementById('theme-toggle');
+    const savedTheme = localStorage.getItem('theme');
+
+    // Ustaw początkowy tryb
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+        themeToggle.querySelector('.toggle-icon').textContent = "☀️";
+    }
+
+    // Obsługa przełącznika
+    themeToggle.addEventListener('click', function () {
+        document.body.classList.toggle('dark-mode');
+        const isDarkMode = document.body.classList.contains('dark-mode');
+
+        // Zmiana emotki
+        const toggleIcon = themeToggle.querySelector('.toggle-icon');
+        toggleIcon.textContent = isDarkMode ? "☀️" : "🌙";
+
+        // Zapisz wybór użytkownika
+        localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+    });
+});
+            
+        </script>
+
+    <section id="about">
+        <h2>O Nas</h2>
+        <p>Nasza historia zaczyna się od pasji do wędkarstwa.<br> Kieruje nami chęć ciągłego doskonalenia.<br> Tworząc kulki proteinowe, wybieramy wyłącznie składniki najwyższej jakości.<br> Korzystamy z precyzyjnych receptur, które sprawdzają się nad wodą.<br>
+
+            Każda kulka to starannie dobrane, naturalne składniki.<br> Unikalne aromaty, intensywne kolory i przemyślana kompozycja<br> skutecznie przyciągają ryby.</p>
+
+        <p><h3>Kulki proteinowe 8mm – idealne do method feeder</h3></p>
+            
+            <p><b>Średnica:</b> 8 mm<br> <b>100% naturalne składniki</b><br> <b>Bogata gama aromatów:</b><br>
+            <ul>
+            <li>Truskawka</li>
+            
+            <li> Kwas Masłowy</li>
+            
+            <li> Ananas</li>
+            
+            <li> Orzech Tygrysi</li>
+            
+            <li> Czosnek</li>
+            
+            <li> Kukurydza</li>
+            
+            <li> Pomarańcza-Czekolada</li>
+            
+            <li> Wanilia-Kukurydza-Konopie</li>
+        </ul><br></p>
+            
+            <p>Nasze produkty testujemy w rzeczywistych warunkach, by zapewnić ich najwyższą efektywność.<br> Chcesz się wyróżnić i zwiększyć swoje szanse na udany połów?<br> Jesteś we właściwym miejscu.<br> Dołącz do nas i odkryj, jak nasze kulki mogą zmienić Twoje wędkowanie!</p>
+    </section>
+
+    <footer>
+        <p>  Copyright &copy; 2025 Baitix</p>
+    </footer>
+</body>
+</html>

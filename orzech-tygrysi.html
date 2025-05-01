@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.png" type="image/png">
+    <title>Orzech Tygrysi 8mm</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="index.html">
+                <img src="logo.png" alt="Logo Sklepu"></a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Strona Główna</a></li>
+                <li><a href="about.html">O Nas</a></li>
+                <li><a href="products.html">Produkty</a></li>
+                <li><a href="promotions.html">Promocje</a></li>
+                <li><a href="regulations.html">Regulamin</a></li>
+                <li><a href="contact.html">Kontakt</a></li>
+            </ul>
+        </nav>
+        <div id="theme-toggle" class="toggle">
+            <span class="toggle-icon">🌙</span>
+        </div>
+
+<style>
+
+/* Sekcja szczegółów produktu */
+#product-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 40px auto;
+    padding: 20px;
+    max-width: 800px;
+    background: #fff; /* Białe tło sekcji */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtelny cień */
+}
+
+/* Styl dla zdjęcia produktu */
+#product-details img {
+    width: 300px;
+    height: auto;
+    border-radius: 10px;
+    border: 1px solid #ddd; /* Obramowanie */
+    margin-bottom: 20px;
+}
+
+/* Tytuł produktu */
+#product-details h2 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #333;
+    text-align: center;
+}
+
+/* Cena produktu */
+#product-details p {
+    font-size: 1.2rem;
+    margin: 10px 0;
+}
+
+/* Ceny promocyjne */
+#product-details p span {
+    font-weight: bold;
+}
+
+#product-details p span[style*="color: red"] {
+    font-size: 1.4rem;
+}
+
+#product-details p span[style*="text-decoration: line-through"] {
+    font-size: 1.2rem;
+}
+
+/* Opis produktu */
+#product-details p strong {
+    color: #000000; /* Wyróżnienie nagłówka opisu */
+}
+
+.remove-btn {
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-left: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.remove-btn:hover {
+    background-color: darkred;
+}
+
+.back-arrow {
+    position: absolute; /* Strzałka pozycjonowana względem rodzica */
+    top: 10px; /* Odstęp od górnej krawędzi kontenera */
+    left: 10px; /* Odstęp od lewej krawędzi kontenera */
+    text-decoration: none;
+    color: #000000; /* Niebieski kolor tekstu */
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #f9f9f9; /* Jasne tło */
+    border: 1px solid #ccc; /* Subtelne obramowanie */
+    border-radius: 5px;
+    padding: 5px 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Delikatny cień */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.arrow-container {
+    position: relative; /* Pozycjonowanie tylko dla strzałki */
+    width: 100%; /* Dopasowanie do szerokości kontenera karty produktu */
+}
+
+.back-arrow:hover {
+    background-color: #007bff; /* Niebieskie tło na hover */
+    color: #fff; /* Biały tekst na hover */
+}
+
+.dark-mode .back-arrow:hover
+{
+    background-color: #818181; /* Niebieskie tło na hover */
+    color: #fff; /* Biały tekst na hover */
+}
+
+.image-carousel {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-images {
+    display: flex;
+    overflow: hidden;
+    width: 300px;
+    height: auto;
+}
+
+.carousel-images img {
+    display: none; /* Ukryj obrazki poza aktywnym */
+    transition: opacity 0.3s ease-in-out;
+}
+
+.carousel-images img.active {
+    display: block; /* Pokazuj tylko aktywny obrazek */
+    opacity: 1;
+}
+
+.carousel-arrow {
+    background: rgba(0, 0, 0, 0.5); /* Półprzezroczyste tło */
+    border: none;
+    font-size: 2rem;
+    color: white;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    padding: 10px;
+    border-radius: 50%; /* Zaokrąglone strzałki */
+    transition: background 0.3s ease-in-out;
+}
+
+.carousel-arrow.left-arrow {
+    left: -45px;
+}
+
+.carousel-arrow.right-arrow {
+    right: -45px;
+}
+
+.carousel-arrow:hover {
+    background: rgba(255, 255, 255, 0.7); /* Zmiana tła na jaśniejsze przy hover */
+    color: black; /* Zmiana koloru ikony */
+}
+
+.carousel-arrow i {
+    pointer-events: none; /* Wyłącz kliknięcia na samej ikonie */
+}
+</style>
+
+        <script>
+
+            document.addEventListener("DOMContentLoaded", function () {
+                const themeToggle = document.getElementById('theme-toggle');
+                const savedTheme = localStorage.getItem('theme');
+            
+                // Ustaw początkowy tryb
+                if (savedTheme === 'dark') {
+                    document.body.classList.add('dark-mode');
+                    themeToggle.querySelector('.toggle-icon').textContent = "☀️";
+                }
+            
+                // Obsługa przełącznika
+                themeToggle.addEventListener('click', function () {
+                    document.body.classList.toggle('dark-mode');
+                    const isDarkMode = document.body.classList.contains('dark-mode');
+            
+                    // Zmiana emotki
+                    const toggleIcon = themeToggle.querySelector('.toggle-icon');
+                    toggleIcon.textContent = isDarkMode ? "☀️" : "🌙";
+            
+                    // Zapisz wybór użytkownika
+                    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+                });
+            });
+                        
+                    </script>
+    </header>
+
+    <button class="cart-icon" onclick="toggleCart()"><img src="koszyk.png" alt="Koszyk">
+        <span id="cart-count">0</span>
+    </button>
+    
+    <section id="cart">
+        <h2>Koszyk</h2><br>
+        <ul id="cart-items"></ul>
+        <p id="cart-total">Cena: 0 zł</p>
+    </section>
+
+    <main>
+
+        <section id="product-details">
+            <div class="arrow-container">
+                <a href="products.html" class="back-arrow" title="Wróć na stronę z produktami">&larr; Powrót</a>
+            </div><br><br><br><br><br>
+            <div class="image-carousel">
+                <button class="carousel-arrow left-arrow" onclick="prevImage()">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="carousel-images">
+                    <img src="orzech-tygrysi.jpeg" alt="Orzech Tygrysi 8mm - Widok 1" class="active" style="width: 300px; height: auto; border-radius: 10px;">
+                    <img src="orzech-tygrysi.jpeg" alt="Orzech Tygrysi 8mm - Widok 2" style="width: 300px; height: auto; border-radius: 10px;">
+                </div>
+                <button class="carousel-arrow right-arrow" onclick="nextImage()">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            <h2>Orzech Tygrysi 8mm</h2>
+            <p><strong>Cena:</strong>  <span style="text-decoration: line-through; color: gray;">20 zł</span> <span style="color: red;">15 zł</span></p>
+            <p><strong>Opis produktu:</strong> Świetny smak orzecha tygrysiego o średnicy 8mm, idealny na łowiska!</p><br>
+            <button class="btn-primary" onclick="addToCart('Orzech Tygrysi 8mm', 20, 15, 'orzech-tygrysi.jpeg')">Dodaj do koszyka</button>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 Baitix</p>
+    </footer>
+    <script>
+        // Funkcja dodawania produktu do koszyka
+        function addToCart(name, oldPrice, newPrice, image) {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.push({ name, normalPrice: oldPrice, totalPrice: newPrice, image });
+            localStorage.setItem('cart', JSON.stringify(cart));
+            alert(`${name} został dodany do koszyka!`);
+        }
+    </script>
+
+<script>
+
+let cart = JSON.parse(localStorage.getItem('cart')) || []; 
+
+function toggleCart() {
+    const cartSection = document.getElementById('cart');
+    cartSection.style.display = cartSection.style.display === 'block' ? 'none' : 'block';
+}
+
+function addToCart(productName, normalPrice, promoPrice, productImageSrc) {
+    const existingProduct = cart.find(item => item.name === productName);
+    if (existingProduct) {
+        existingProduct.quantity++;
+        existingProduct.totalPrice += promoPrice;
+    } else {
+        cart.push({
+            name: productName,
+            normalPrice: normalPrice,
+            promoPrice: promoPrice,
+            quantity: 1,
+            totalPrice: promoPrice,
+            image: productImageSrc
+        });
+    }
+    saveCart(); // Zapisz dane koszyka w localStorage
+    updateCart();
+    updateCartCount(); // Aktualizacja licznika produktów
+}
+
+function updateCart() {
+    const cartItems = document.getElementById('cart-items');
+    const cartTotal = document.getElementById('cart-total');
+
+    cartItems.innerHTML = '';
+    let normalTotal = 0;
+    let promoTotal = 0;
+
+    if (cart.length > 0) {
+        cart.forEach((item, index) => {
+            const li = document.createElement('li');
+            li.style.display = 'flex';
+            li.style.alignItems = 'center';
+            li.style.marginBottom = '10px';
+
+            li.innerHTML = `
+                <div class="cart-item" style="flex-grow: 1;">
+                    <span class="cart-item-name">${item.name}</span>
+                    <span class="cart-item-quantity">${item.quantity} szt</span>
+                    <span class="cart-item-price">
+                        <span class="normal-price">${item.normalPrice * item.quantity} zł</span>
+                        <span class="promo-price">${item.totalPrice} zł</span>
+                    </span>
+                </div>
+                <img src="${item.image}" alt="${item.name}" style="width: 100px; height: 100px; margin-left: 10px; border-radius: 10px; border: 1px solid #ddd;">
+                <button class="remove-btn" onclick="removeFromCart(${index})">X</button>
+            `;
+
+            cartItems.appendChild(li);
+
+            normalTotal += item.normalPrice * item.quantity;
+            promoTotal += item.totalPrice;
+        });
+
+        cartTotal.innerHTML = `
+            <span class="normal-price">Cena bez promocji: ${normalTotal} zł</span>
+            <span class="promo-price">Cena z promocją: ${promoTotal} zł</span><br>
+            <a href="checkout.html" onclick="saveCart()" class="btn-primary">KUP TERAZ</a>
+        `;
+    } else {
+        cartTotal.innerHTML = `<p>Koszyk jest pusty.</p>`;
+    }
+}
+
+function removeFromCart(index) {
+    cart.splice(index, 1);
+    saveCart();
+    updateCart();
+    updateCartCount();
+
+    const cartSection = document.getElementById('cart');
+    cartSection.style.display = 'block'; // Koszyk pozostaje otwarty
+}
+
+function saveCart() {
+    localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+function updateCartCount() {
+    const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
+    document.getElementById('cart-count').textContent = cartCount;
+}
+
+function loadCart() {
+    cart = JSON.parse(localStorage.getItem('cart')) || [];
+    updateCart();
+    updateCartCount();
+}
+
+window.addEventListener('scroll', function () {
+    const cartSection = document.getElementById('cart');
+    if (cartSection.style.display === 'block') {
+        cartSection.style.display = 'none';
+    }
+});
+
+document.addEventListener('click', function (event) {
+    const cartSection = document.getElementById('cart');
+    const cartIcon = document.querySelector('.cart-icon');
+    const isRemoveButton = event.target.classList.contains('remove-btn');
+
+    if (cartSection.style.display === 'block' && 
+        !cartSection.contains(event.target) && 
+        !cartIcon.contains(event.target) &&
+        !isRemoveButton) {
+        cartSection.style.display = 'none';
+    }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    loadCart();
+});
+
+// Wywołaj funkcję załadowania koszyka po załadowaniu strony
+document.addEventListener("DOMContentLoaded", function () {
+    loadCart(); // Synchronizuj dane koszyka przy starcie
+});
+
+let currentImageIndex = 0;
+
+function showImage(index) {
+    const images = document.querySelectorAll('.carousel-images img');
+    images.forEach((img, i) => {
+        img.classList.remove('active');
+        if (i === index) {
+            img.classList.add('active');
+        }
+    });
+}
+
+function nextImage() {
+    const images = document.querySelectorAll('.carousel-images img');
+    currentImageIndex = (currentImageIndex + 1) % images.length; // Przejdź do następnego obrazka
+    showImage(currentImageIndex);
+}
+
+function prevImage() {
+    const images = document.querySelectorAll('.carousel-images img');
+    currentImageIndex = (currentImageIndex - 1 + images.length) % images.length; // Przejdź do poprzedniego obrazka
+    showImage(currentImageIndex);
+}
+
+
+</script>
+
+</body>
+</html>
